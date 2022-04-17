@@ -29,6 +29,13 @@ jobs:
                 echo "CONFIG_PACKAGE_qca-ssdk-shell=y\n" >> .config
                 echo "CONFIG_PACKAGE_wpad-basic-wolfssl=m\n" >> .config
                 echo "CONFIG_PACKAGE_wpad-wolfssl=y\n" >> .config
+                echo "CONFIG_PACKAGE_kmod-tun=y\n" >> .config
+                echo "CONFIG_PACKAGE_kmod-wireguard=y\n" >> .config
+                echo "CONFIG_PACKAGE_luci-app-openvpn=y\n" >> .config
+                echo "CONFIG_PACKAGE_luci-app-wireguard=y\n" >> .config
+                echo "CONFIG_PACKAGE_openvpn-openssl=y\n" >> .config
+                echo "CONFIG_PACKAGE_wireguard-tools=y\n" >> .config
+                echo "CONFIG_PACKAGE_luci-app-wireguard=y\n" >> .config
                 make defconfig
 
             - name: Download package sources
@@ -36,12 +43,12 @@ jobs:
 
             - name: Build tools
               run: |
-                make tools/install -j$(nproc) V=s || \
+                make tools/install -j4 V=s || \
                 make tools/install V=s
 
             - name: Build toolchain
               run: |
-                make toolchain/install -j$(nproc) V=s || \
+                make toolchain/install -j4 V=s || \
                 make toolchain/install V=s
 
             - name: Build target images
